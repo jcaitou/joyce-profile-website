@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { site } from "../data/site";
 
 const links = [
   { href: "/", label: "Work" },
@@ -40,8 +41,8 @@ export default function Header() {
       className={`site-header${solid ? " is-solid" : ""}${open ? " is-open" : ""}`}
     >
       <div className="header-bar">
-        <Link href="/" className="logo-link" aria-label="Ryan Lo, home">
-          <img src="/images/logo.png" alt="Ryan Lo" />
+        <Link href="/" className="logo-link logo-text">
+          {site.name}
         </Link>
         <nav className="desktop-nav" aria-label="Primary">
           {links.map((link) => (

@@ -74,6 +74,14 @@ a {
   width: auto;
 }
 
+.logo-text {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-decoration: none;
+}
+
 .desktop-nav {
   display: flex;
   align-items: center;
@@ -151,12 +159,13 @@ a {
 .hero {
   position: relative;
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: center;
   min-height: 800px;
-  color: #ffffff;
-  text-align: center;
-  background: #000000 url("/images/hero.jpg") center center / cover no-repeat;
+  color: #000000;
+  text-align: left;
+  /* 30% keeps Joyce (left side of the photo) in view on narrow phone screens. */
+  background: #000000 url("/images/hero.jpg") 30% center / cover no-repeat;
 }
 
 .hero::before {
@@ -178,8 +187,10 @@ a {
 .hero-inner {
   position: relative;
   width: 100%;
+  /* Wide enough that the text block ends above Joyce holding the mic. */
   max-width: 1200px;
-  padding: 0 40px 88px;
+  /* Top padding places the text in the top third of the photo. */
+  padding: 170px 40px 96px;
 }
 
 .hero h1 {
@@ -190,12 +201,28 @@ a {
 }
 
 .hero p {
-  max-width: 720px;
-  margin: 0 auto 22px;
+  margin: 0 0 22px;
   font-size: 14px;
   font-weight: 400;
   letter-spacing: 1px;
   line-height: 1.45;
+}
+
+/* 50% white panel behind the hero text. Even over the darkest part of the
+   photo, black text on it keeps a contrast ratio above 5:1 (WCAG AA). */
+.hero-panel {
+  padding: 32px 36px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.hero-panel > :last-child {
+  margin-bottom: 0;
+}
+
+.hero .hero-subheadline {
+  margin-top: -6px;
+  font-size: 18px;
+  letter-spacing: 0.5px;
 }
 
 .button {
@@ -304,6 +331,33 @@ a {
   opacity: 1;
 }
 
+/* Wide images such as diagrams: show the whole image, not a square crop. */
+.project-card.fit-contain {
+  background: #ffffff;
+}
+
+.project-card.fit-contain img {
+  object-fit: contain;
+}
+
+/* Projects without an image: show the title on a plain tile. */
+.project-card.no-image {
+  background: #2f3e46;
+}
+
+.project-card.no-image .project-card-caption {
+  background: transparent;
+  font-size: 18px;
+  font-weight: 600;
+  opacity: 1;
+  transition: background-color 260ms ease;
+}
+
+.project-card.no-image:hover .project-card-caption,
+.project-card.no-image:focus-visible .project-card-caption {
+  background: rgba(255, 255, 255, 0.1);
+}
+
 .about {
   background: #ffffff;
   padding-top: 84px;
@@ -325,6 +379,11 @@ a {
   width: 100%;
   max-width: 320px;
   height: auto;
+  vertical-align: top;
+}
+
+.about-photo img + img {
+  margin-top: 16px;
 }
 
 .about-copy h1 {
@@ -343,6 +402,24 @@ a {
   font-size: 15px;
 }
 
+.about-copy h3 {
+  margin: 32px 0 10px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.about-copy ul {
+  margin: 0 0 22px;
+  padding-left: 20px;
+  font-size: 15px;
+}
+
+.about-copy li {
+  margin-bottom: 4px;
+}
+
 .about-copy a {
   font-weight: 600;
   text-decoration: underline;
@@ -353,11 +430,99 @@ a {
   opacity: 0.75;
 }
 
+/* Buttons inside the About text shouldn't pick up the link underline. */
+.about-copy a.button {
+  font-weight: 500;
+  text-decoration: none;
+}
+
 .about-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 18px;
   margin-top: 8px;
+}
+
+/* Gallery carousel (About page) */
+.gallery .section-inner {
+  padding-top: 0;
+}
+
+.gallery-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.gallery-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.gallery-arrow {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid #000000;
+  background: transparent;
+  color: #000000;
+  font-family: inherit;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color 100ms ease-in-out,
+    opacity 200ms ease;
+}
+
+.gallery-arrow:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.gallery-arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.gallery-track {
+  display: flex;
+  gap: 12px;
+  margin: 0;
+  padding: 0 0 12px;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+}
+
+.gallery-track:focus-visible {
+  outline: 2px solid #000000;
+  outline-offset: 4px;
+}
+
+.gallery-slide {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+
+.gallery-slide figure {
+  margin: 0;
+}
+
+.gallery-slide img {
+  display: block;
+  width: auto;
+  max-width: none;
+  height: 360px;
+}
+
+.gallery-slide figcaption {
+  max-width: 100%;
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.4;
 }
 
 .site-footer {
@@ -466,7 +631,12 @@ a {
   }
 
   .hero-inner {
-    padding-bottom: 64px;
+    padding-top: 120px;
+    padding-bottom: 80px;
+  }
+
+  .hero-panel {
+    padding: 24px 20px;
   }
 
   .section-inner {
@@ -484,6 +654,10 @@ a {
 
   .project-grid {
     grid-template-columns: 1fr;
+  }
+
+  .gallery-slide img {
+    height: 260px;
   }
 
   .site-footer {

@@ -2,6 +2,7 @@ import "./globals.css";
 import { Open_Sans } from "next/font/google";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { site } from "../data/site";
 
 const openSans = Open_Sans({
   subsets: ["latin"],
@@ -11,11 +12,10 @@ const openSans = Open_Sans({
 
 export const metadata = {
   title: {
-    default: "Ryan Lo",
-    template: "%s",
+    default: site.name,
+    template: `%s | ${site.name}`,
   },
-  description:
-    "Ryan Lo is an urban planner, designer, and community engagement strategist, and Co-Executive Director of Urban Minds.",
+  description: site.description,
 };
 
 export default function RootLayout({ children }) {

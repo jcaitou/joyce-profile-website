@@ -1,6 +1,12 @@
-# Ryan Lo
+# Joyce Lin
 
-A beginner-friendly Next.js copy of [ryanlo.ca](https://www.ryanlo.ca/). Pages live in `app/`, shared pieces live in `components/`, and the project list is `data/projects.js`.
+Joyce Lin's portfolio site, built with Next.js.
+
+## Editing content
+
+- `data/site.js`: name, contact links, homepage text and About page text
+- `data/projects.js`: the Featured Work grid
+- `public/images/`: photos (`hero.jpg` for the top of the homepage, `portrait.jpg` for the About page, plus any project images)
 
 ## Run locally
 

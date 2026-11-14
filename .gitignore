@@ -3,3 +3,6 @@ node_modules
 out
 .vercel
 *.log
+
+# Full-size original photos (not used by the site)
+original-photos/

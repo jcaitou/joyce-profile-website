@@ -11,16 +11,14 @@ export default function HomePage() {
     <>
       <section className="hero">
         <div className="hero-inner">
-          <h1>Hi, I&apos;m Ryan.</h1>
-          <p>
-            Urban Planner | Designer | Community Engagement Strategist
-            <br />
-            <br />
-            Co-Executive Director of Urban Minds
-          </p>
-          <a className="button" href={`mailto:${site.email}`}>
-            Get in touch
-          </a>
+          <div className="hero-panel">
+            <h1>Welcome, I&apos;m {site.firstName}</h1>
+            <p className="hero-subheadline">{site.subheadline}</p>
+            <p>{site.headline}</p>
+            <a className="button button-dark" href={`mailto:${site.email}`}>
+              Get in touch
+            </a>
+          </div>
         </div>
       </section>
 
@@ -28,17 +26,16 @@ export default function HomePage() {
         <div className="section-inner">
           <h2>Featured Work</h2>
           <p className="work-intro">
-            Youth Engagement&nbsp; |&nbsp; Community Engagement&nbsp; |&nbsp;
-            Public Spaces &amp;&nbsp;Placemaking&nbsp; |&nbsp; Active
-            Transportation
-            <br />
-            Program Design&nbsp; |&nbsp; Workshop Facilitation&nbsp; |&nbsp;
-            Public Speaking&nbsp; |&nbsp; Panel Discussions&nbsp; |&nbsp;
-            Branding &amp; Design
+            {site.skills.map((line, i) => (
+              <span key={i}>
+                {i > 0 && <br />}
+                {line.join("  |  ")}
+              </span>
+            ))}
           </p>
           <div className="project-grid">
             {projects.map((project) => (
-              <ProjectCard key={project.image} {...project} />
+              <ProjectCard key={project.title} {...project} />
             ))}
           </div>
         </div>

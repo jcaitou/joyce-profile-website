@@ -1,68 +1,60 @@
-import { site } from "../../data/site";
+import Gallery from "../../components/Gallery";
+import { gallery } from "../../data/gallery";
+import { about, site } from "../../data/site";
 
 export const metadata = {
   title: "About",
 };
+
+function Paragraph({ content }) {
+  const pieces = Array.isArray(content) ? content : [content];
+  return (
+    <p>
+      {pieces.map((piece, i) =>
+        typeof piece === "string" ? (
+          piece
+        ) : (
+          <a key={i} href={piece.href} target="_blank" rel="noreferrer">
+            {piece.text}
+          </a>
+        )
+      )}
+    </p>
+  );
+}
 
 export default function AboutPage() {
   return (
     <section className="about">
       <div className="section-inner about-layout">
         <div className="about-photo">
-          <img src="/images/portrait.jpg" alt="Ryan Lo" />
+          <img src="/images/portrait.jpg" alt={site.name} />
+          <img
+            src="/images/portrait-2.jpg"
+            alt={`${site.name} at her University of Victoria graduation with her two children`}
+          />
         </div>
         <div className="about-copy">
-          <h1>Ryan Lo</h1>
-          <h2>Bringing people together to make our cities better.</h2>
-          <p>
-            My work is about creating positive change for the public good
-            through collaboration and creativity.
-          </p>
-          <p>
-            As Co-Executive Director of{" "}
-            <a href="https://www.urbanminds.co/" target="_blank" rel="noreferrer">
-              Urban Minds
-            </a>
-            , I work to bridge the gap between youth and decision makers in
-            both large-scale projects and grassroots, youth-led initiatives. I
-            specialize in developing youth engagement strategies and events for
-            municipalities and community partners.
-          </p>
-          <p>
-            I have extensive community engagement experience in planning policy,
-            urban development, placemaking, and transportation. My previous
-            roles include Senior Public Consultation Coordinator at the{" "}
-            <a
-              href="https://www.toronto.ca/community-people/get-involved/public-consultations/infrastructure-projects/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              City of Toronto
-            </a>
-            , Planning and Policy Advisor for{" "}
-            <a href="https://shelleycarroll.ca/" target="_blank" rel="noreferrer">
-              Councillor Shelley Carroll
-            </a>
-            , and Project Coordinator at{" "}
-            <a href="https://www.880cities.org/" target="_blank" rel="noreferrer">
-              8 80 Cities
-            </a>
-            . I teach part-time as a 3rd-year undergraduate studio instructor
-            at{" "}
-            <a
-              href="https://www.torontomu.ca/school-of-urban-and-regional-planning/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Toronto Metropolitan University School of Urban and Regional
-              Planning
-            </a>
-            .
-          </p>
-          <p>
-            I&apos;m always open to new ideas and possibilities. Feel free to
-            connect with me via email or LinkedIn.
-          </p>
+          <h1>{site.name}</h1>
+          <h2>{about.tagline}</h2>
+          {about.bio.map((paragraph, i) => (
+            <Paragraph key={i} content={paragraph} />
+          ))}
+
+          <h3>Education</h3>
+          <ul>
+            {about.education.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+
+          <h3>Past Roles</h3>
+          <ul>
+            {about.pastRoles.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+
           <div className="about-actions">
             <a className="button button-dark" href={`mailto:${site.email}`}>
               Email me
@@ -78,6 +70,7 @@ export default function AboutPage() {
           </div>
         </div>
       </div>
+      <Gallery photos={gallery} />
     </section>
   );
 }

@@ -1,14 +1,16 @@
-export default function ProjectCard({ title, href, image }) {
-  const external = href.startsWith("http");
+export default function ProjectCard({ title, href, image, imageFit }) {
+  const newTab = href.startsWith("http") || href.endsWith(".pdf");
 
   return (
     <a
-      className="project-card"
+      className={`project-card${image ? "" : " no-image"}${
+        imageFit === "contain" ? " fit-contain" : ""
+      }`}
       href={href}
       title={title.replace("\n", " ")}
-      {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+      {...(newTab ?{ target: "_blank", rel: "noreferrer" } : {})}
     >
-      <img src={image} alt="" />
+      {image && <img src={image} alt="" />}
       <span className="project-card-caption">{title}</span>
     </a>
   );
